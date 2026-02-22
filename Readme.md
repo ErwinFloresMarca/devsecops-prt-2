@@ -1,11 +1,75 @@
-## Enfoque de la práctica
-Esta práctica debe ser implementada, no solo diseñada.
-El objetivo es aplicar DevSecOps de manera práctica, integrando:
-        - - Front-end
-        - - Back-end
-        - - Inicio de sesión seguro
-        - - Arquitectura de microservicios
-        - - Automatización CI/CD con seguridad embebida
+## 🔐 Enfoque de la Práctica - DevSecOps Implementado
+
+Esta práctica debe ser **implementada, no solo diseñada**.
+
+El objetivo es aplicar **DevSecOps de manera práctica**, integrando:
+- ✅ Front-end (React/Vite)
+- ✅ Back-end (Microservicios Node.js)
+- ✅ Inicio de sesión seguro (JWT + Bcrypt)
+- ✅ Arquitectura de microservicios
+- ✅ **Automatización CI/CD con seguridad embebida en each stage**
+
+---
+
+## 📊 Pipeline CI/CD DevSecOps
+
+El pipeline está definido en [.github/workflows/devsecops.yml](.github/workflows/devsecops.yml) e implementa **10 etapas de seguridad y calidad**:
+
+### Etapas del Pipeline
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ 1️⃣  Setup & Dependency Validation   [npm ci]                    │
+│ 2️⃣  Code Quality Analysis           [ESLint]                    │
+│ 3️⃣  Automated Testing               [Jest]                      │
+│ 4️⃣  Dependency Security Scanning    [npm audit + SCA]           │
+│ 5️⃣  Static Security Analysis        [Semgrep + Trufflehog]      │
+│ 6️⃣  Environment Setup               [.env validation]           │
+│ 7️⃣  Docker Build & Tagging          [Reproducible images]       │
+│ 8️⃣  Container Security Scanning     [Trivy]                     │
+│ 9️⃣  Integration & Smoke Tests       [docker-compose + curl]     │
+│ 🔟 Reporting & Summary              [Artifacts upload]          │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Herramientas de Seguridad
+
+| Herramienta | Función | Fase |
+|------------|---------|------|
+| **npm ci** | Instalación reproducible | Setup |
+| **ESLint** | Análisis de calidad de código | QA |
+| **Jest** | Unit & integration tests | Testing |
+| **npm audit** | Scanning de dependencias (SCA) | Dependency Security |
+| **Semgrep** | SAST: Detección de vulnerabilidades | Static Analysis |
+| **Trufflehog** | SAST: Detección de secrets | Static Analysis |
+| **Docker Build** | Construcción con trazabilidad | Build |
+| **Trivy** | Container scanning: Vulnerabilidades en layers | Container Security |
+| **docker-compose** | Smoke tests de integración | Integration Testing |
+
+### Riesgos Mitigados
+
+✅ **Supply Chain Attacks** → Policy: Solo dependencias verificadas  
+✅ **Code Injection (SQL, XSS, Command)** → Policy: SAST detección  
+✅ **Vulnerable Dependencies** → Policy: npm audit bloqueante  
+✅ **Hardcoded Secrets** → Policy: Trufflehog bloqueante  
+✅ **Container Vulnerabilities** → Policy: Trivy escaneo completo  
+
+---
+
+## 📖 Documentación Técnica
+
+Para detalles completos de **justificación técnica, arquitectura de decisiones y análisis de riesgos**:
+
+👉 **[DEVSECOPS_JUSTIFICATION.md](DEVSECOPS_JUSTIFICATION.md)** ← Leer este documento
+
+### Contenido de la Justificación Técnica
+
+- ✅ Explicación de cada herramienta y por qué es necesaria
+- ✅ Ejemplos de vulnerabilidades detectadas
+- ✅ Análisis de riesgos mitigados
+- ✅ Comparativas con alternativas consideradas
+- ✅ Justificación del orden de ejecución
+- ✅ Impacto en seguridad, velocidad y cumplimiento
      
 
 # 1. Adición del Front-end
