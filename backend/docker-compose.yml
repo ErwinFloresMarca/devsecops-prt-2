@@ -34,6 +34,8 @@ services:
     image: api-gateway:latest
     build: ./api-gateway
     container_name: api-gateway
+    env_file:
+      - ./api-gateway/.env
     ports:
       - "3000:3000"
     depends_on:

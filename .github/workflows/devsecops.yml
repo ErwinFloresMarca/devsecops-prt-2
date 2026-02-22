@@ -432,6 +432,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: "Setup: Create .env files for docker-compose"
+        run: |
+          echo "🔧 Creating .env files for integration tests..."
+          
+          # Create .env files from .env.example
+          for service in backend/users-service backend/academic-service backend/api-gateway; do
+            if [ -f "$service/.env.example" ]; then
+              cp "$service/.env.example" "$service/.env"
+              echo "✅ Created $service/.env"
+            else
+              echo "⚠️  No .env.example found for $service, creating basic config..."
+              echo "NODE_ENV=test" > "$service/.env"
+              echo "PORT=$(basename $service | sed 's/.*-//')" >> "$service/.env"
+            fi
+          done
+
       - name: "Integration: Start Docker Compose"
         run: |
           echo "🚀 Starting application stack..."
